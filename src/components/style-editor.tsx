@@ -19,7 +19,6 @@ const BG_TYPES: { key: StyleBgType; label: string }[] = [
   { key: 'default',  label: 'None' },
   { key: 'solid',    label: 'Colour' },
   { key: 'gradient', label: 'Gradient' },
-  { key: 'image',    label: 'GIF / Image' },
 ]
 
 const EFFECTS: { key: StyleEffect; label: string; description: string; color: string }[] = [
@@ -112,26 +111,6 @@ export function StyleEditor({ value: cfg, onChange, showDefault = true, compact 
                 </button>
               ))}
             </div>
-          </div>
-        )}
-
-        {/* Image / GIF */}
-        {cfg.bgType === 'image' && (
-          <div className="space-y-1.5">
-            <div className="flex items-center gap-2">
-              <Image className="size-3.5 shrink-0 text-muted-foreground" />
-              <input type="url" value={cfg.imgUrl} onChange={e => onChange({ imgUrl: e.target.value })}
-                placeholder="Paste GIF or image URL…"
-                className="flex-1 rounded border border-white/10 bg-white/5 px-2 py-1.5 text-[11px] placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
-            </div>
-            <p className="text-[10px] text-muted-foreground">
-              Tenor / Giphy: right-click GIF → Copy image address → paste above
-            </p>
-            {cfg.imgUrl && (
-              <div className="h-14 w-full overflow-hidden rounded-md border border-white/10">
-                <img src={cfg.imgUrl} alt="preview" className="h-full w-full object-cover" />
-              </div>
-            )}
           </div>
         )}
       </div>
