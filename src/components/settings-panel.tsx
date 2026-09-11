@@ -145,7 +145,7 @@ function PaletteIcon({ className }: { className?: string }) {
       <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
       <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
       <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
-      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.477-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.55[...]
+      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.477-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.555C21.952 6.5 17.5 2 12 2z" />
     </svg>
   )
 }
@@ -347,7 +347,7 @@ export function SettingsPanel() {
                       onChange={e => setCustomCss(e.target.value)}
                       spellCheck={false}
                       placeholder={`.glass-target {\n  border-radius: 16px;\n}\n\naside {\n  opacity: 0.9;\n}`}
-                      className="h-72 w-full resize-y rounded-lg border border-white/10 bg-black/40 px-3 py-3 font-mono text-[11px] leading-relaxed text-foreground placeholder:text-muted-foregrou[...]
+                      className="h-72 w-full resize-y rounded-lg border border-white/10 bg-black/40 px-3 py-3 font-mono text-[11px] leading-relaxed text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40"
                     />
                     <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 p-3">
                       <p className="text-[11px] text-amber-400/80 leading-relaxed">
@@ -364,7 +364,7 @@ export function SettingsPanel() {
                     type="button"
                     onClick={handleExport}
                     disabled={exporting}
-                    className="flex w-full items-center justify-center gap-2 rounded-lg border border-primary/40 bg-primary/10 px-3 py-2.5 text-xs font-semibold text-primary transition-colors hov[...]
+                    className="flex w-full items-center justify-center gap-2 rounded-lg border border-primary/40 bg-primary/10 px-3 py-2.5 text-xs font-semibold text-primary transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <Download className="size-3.5" />
                     {exporting ? "Preparing ZIP…" : "Download website ZIP"}
