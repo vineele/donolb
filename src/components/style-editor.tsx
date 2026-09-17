@@ -19,6 +19,7 @@ const BG_TYPES: { key: StyleBgType; label: string }[] = [
   { key: 'default',  label: 'None' },
   { key: 'solid',    label: 'Colour' },
   { key: 'gradient', label: 'Gradient' },
+  { key: 'image',    label: 'GIF / Image' },
 ]
 
 const EFFECTS: { key: StyleEffect; label: string; description: string; color: string }[] = [
@@ -55,14 +56,11 @@ function Swatch({ value, onChange, label }: { value: string; onChange: (v: strin
 export function StyleEditor({ value: cfg, onChange, showDefault = true, compact = false }: StyleEditorProps) {
   const bgTypes = showDefault ? BG_TYPES : BG_TYPES.filter(t => t.key !== 'default')
 
-  // Preview swatch for the background section header
   const previewStyle = getInlineStyle(cfg)
   const hasPreview = cfg.bgType !== 'default'
 
   return (
     <div className={cn('space-y-5', compact && 'space-y-4')}>
-
-      {/* ── Background type ── */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Background</p>
@@ -84,12 +82,10 @@ export function StyleEditor({ value: cfg, onChange, showDefault = true, compact 
           ))}
         </div>
 
-        {/* Solid colour */}
         {cfg.bgType === 'solid' && (
           <Swatch value={cfg.bgColor} onChange={v => onChange({ bgColor: v })} label="Pick colour" />
         )}
 
-        {/* Gradient */}
         {cfg.bgType === 'gradient' && (
           <div className="space-y-2">
             <div className="flex items-center gap-2">
@@ -113,9 +109,27 @@ export function StyleEditor({ value: cfg, onChange, showDefault = true, compact 
             </div>
           </div>
         )}
+
+        {cfg.bgType === 'image' && (
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2">
+              <Image className="size-3.5 shrink-0 text-muted-foreground" />
+              <input type="url" value={cfg.imgUrl} onChange={e => onChange({ imgUrl: e.target.value })}
+                placeholder="Paste GIF or image URL…"
+                className="flex-1 rounded border border-white/10 bg-white/5 px-2 py-1.5 text-[11px] placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
+            </div>
+            <p className="text-[10px] text-muted-foreground">
+              Tenor / Giphy: right-click GIF → Copy image address → paste above
+            </p>
+            {cfg.imgUrl && (
+              <div className="h-14 w-full overflow-hidden rounded-md border border-white/10">
+                <img src={cfg.imgUrl} alt="preview" className="h-full w-full object-cover" />
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
-      {/* ── Effect ── */}
       <div className="space-y-2">
         <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Effect</p>
         <div className="flex flex-col gap-1.5">
@@ -137,7 +151,6 @@ export function StyleEditor({ value: cfg, onChange, showDefault = true, compact 
           ))}
         </div>
 
-        {/* Effect-specific color pickers */}
         {cfg.effect === 'glow' && (
           <Swatch value={cfg.glowColor} onChange={v => onChange({ glowColor: v })} label="Glow colour" />
         )}
