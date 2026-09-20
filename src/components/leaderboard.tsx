@@ -28,7 +28,7 @@ export function Leaderboard() {
   }, [focusMode])
 
   return (
-    <section aria-label="Leaderboard" className="lb-section">
+    <section aria-label="Leaderboard" className="lb-section glass-target">
       <div className="mb-3 flex items-center justify-between gap-3">
         <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Leaderboard</p>
         <button

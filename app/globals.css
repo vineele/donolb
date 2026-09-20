@@ -106,12 +106,20 @@ body.lb-focus-mode main {
   padding-top: 0 !important;
 }
 
+/* The shell's desktop sidebar offset remains on the main wrapper after the sidebar is hidden. */
+body.lb-focus-mode .md\\:pl-60 {
+  padding-left: 0 !important;
+}
+
 body.lb-focus-mode .lb-home-page {
+  box-sizing: border-box;
   width: 100%;
-  max-width: 52rem;
-  margin: 0 auto;
+  max-width: none;
   min-height: 100svh;
+  margin: 0;
+  padding: 2rem max(1rem, 4vw);
   justify-content: center;
+  align-items: center;
 }
 
 body.lb-focus-mode .lb-home-header,
@@ -122,7 +130,7 @@ body.lb-focus-mode .lb-home-feed {
 
 body.lb-focus-mode .lb-home-content {
   display: block;
-  width: 100%;
+  width: min(100%, 52rem);
   max-width: 52rem;
   margin: 0 auto;
 }
