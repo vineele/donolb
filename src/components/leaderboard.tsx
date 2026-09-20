@@ -1,34 +1,53 @@
 "use client";
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { BadgeCheck, Flame } from 'lucide-react'
+import { BadgeCheck, Eye, EyeOff, Flame } from 'lucide-react'
 import { users, formatMoney, type LeaderboardPeriod } from '@/lib/data'
 import { BracketRow } from '@/components/bracket-row'
 import { useProfile } from '@/hooks/use-profile'
 import { cn } from '@/lib/utils'
 
 const periods: { key: LeaderboardPeriod; label: string }[] = [
-  { key: 'daily',    label: 'Daily'    },
-  { key: 'weekly',   label: 'Weekly'   },
-  { key: 'monthly',  label: 'Monthly'  },
-  { key: 'yearly',   label: 'Yearly'   },
+  { key: 'daily', label: 'Daily' },
+  { key: 'weekly', label: 'Weekly' },
+  { key: 'monthly', label: 'Monthly' },
+  { key: 'yearly', label: 'Yearly' },
   { key: 'all-time', label: 'All-Time' },
 ]
 
 export function Leaderboard() {
   const [period, setPeriod] = useState<LeaderboardPeriod>('all-time')
+  const [focusMode, setFocusMode] = useState(false)
   const { profile } = useProfile()
   const ranked = [...users].sort((a, b) => b.amounts[period] - a.amounts[period])
 
+  useEffect(() => {
+    document.body.classList.toggle('lb-focus-mode', focusMode)
+    return () => document.body.classList.remove('lb-focus-mode')
+  }, [focusMode])
+
   return (
-    <section aria-label="Leaderboard">
+    <section aria-label="Leaderboard" className="lb-section">
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Leaderboard</p>
+        <button
+          type="button"
+          aria-pressed={focusMode}
+          onClick={() => setFocusMode((visible) => !visible)}
+          className="flex items-center gap-1.5 rounded-md border border-border bg-card px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+        >
+          {focusMode ? <Eye className="size-3.5" aria-hidden="true" /> : <EyeOff className="size-3.5" aria-hidden="true" />}
+          {focusMode ? 'Show all UI' : 'Hide all UI'}
+        </button>
+      </div>
+
       <div
         className="flex flex-wrap gap-1 rounded-lg border border-border bg-card p-1 glass-target"
         role="tablist"
         aria-label="Leaderboard period"
       >
-        {periods.map(p => (
+        {periods.map((p) => (
           <button
             key={p.key}
             type="button"
@@ -88,7 +107,12 @@ export function Leaderboard() {
                 transition={{ duration: 0.28, ease: 'easeOut', delay: i * 0.03 }}
                 className="flex items-center gap-4 rounded-lg border border-border bg-card px-4 py-3 glass-target transition-colors hover:bg-accent/40"
               >
-                <span className={cn('w-7 shrink-0 text-center text-sm font-semibold tabular-nums', i === 0 ? 'text-primary' : 'text-muted-foreground')}>
+                <span
+                  className={cn(
+                    'w-7 shrink-0 text-center text-sm font-semibold tabular-nums',
+                    i === 0 ? 'text-primary' : 'text-muted-foreground',
+                  )}
+                >
                   {i + 1}
                 </span>
                 <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-secondary text-xs font-semibold">

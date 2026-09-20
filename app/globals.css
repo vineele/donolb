@@ -97,6 +97,40 @@
   }
 }
 
+body.lb-focus-mode aside,
+body.lb-focus-mode header {
+  display: none !important;
+}
+
+body.lb-focus-mode main {
+  padding-top: 0 !important;
+}
+
+body.lb-focus-mode .lb-home-page {
+  width: 100%;
+  max-width: 52rem;
+  margin: 0 auto;
+  min-height: 100svh;
+  justify-content: center;
+}
+
+body.lb-focus-mode .lb-home-header,
+body.lb-focus-mode .lb-home-metrics,
+body.lb-focus-mode .lb-home-feed {
+  display: none !important;
+}
+
+body.lb-focus-mode .lb-home-content {
+  display: block;
+  width: 100%;
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+body.lb-focus-mode .lb-section {
+  width: 100%;
+}
+
 /* ─── Bracket effect keyframes ─── */
 @keyframes holo-spin {
   0%   { background-position: 0%   50%; }
